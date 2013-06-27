@@ -1,4 +1,5 @@
-
+<?php ini_set('display_errors', 'on'); ?>
+<?php include_once('header.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 	
@@ -15,7 +16,7 @@
 
 			.container {
 				width: auto;
-				max-width: 680px;
+				max-width: 980px;
 			}
 			.container .credit {
 				margin: 20px 0;
@@ -44,13 +45,22 @@
           <div class="accordion-group">
               <div class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#a1-collapseOne">
-                  SOLR
+                  My Details
                 </a>
               </div>
               <div id="a1-collapseOne" class="accordion-body collapse in">
                 <div class="accordion-inner">
-                  Environment Details
-                </div>
+			
+			<p>
+				Public IP Address: <?php echo $drupal['automatic']['ec2']['public_ipv4'] ?>
+			</p>
+			
+			<br /><br />
+
+			<pre>
+			<?php print_r($drupal['automatic']['ec2']); ?>
+                	</pre>
+		</div>
               </div>
             </div>
           
