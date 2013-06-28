@@ -4,8 +4,9 @@ $drupal = array();
 $ckan = array();
 $solr = array();
 
-$string = file_get_contents("../env/drupal.json");
+list($file) = glob('../env/drupal*.json'); 
+$json = file_get_contents($file);
 
-$drupal=json_decode($string,true);
+$drupal=json_decode($json,true);
 
 ?>
