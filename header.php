@@ -1,12 +1,14 @@
 <?php
 
-$drupal = array();
-$ckan = array();
-$solr = array();
+$self = 'drupal';
+$connects = array("drupal", "ckan");
 
-list($file) = glob('../env/drupal*.json'); 
-$json = file_get_contents($file);
+$instances = array();
 
-$drupal=json_decode($json,true);
+foreach($connects as $instance) {
+	list($file) = glob('../env/'.$instance.'*.json'); 
+	$json = file_get_contents($file);
+	$instances[$instance] = json_decode($json,true);
+}
 
 ?>
