@@ -6,8 +6,8 @@
   $status = array("Green",
                   "Yellow",
                  );
-  $statusMsg = array("Drupal server is ready for requests",
-                     "Drupal server is busy",
+  $statusMsg = array(ucwords($self)." server is ready for requests",
+                     ucwords($self)." server is busy",
                      );
 
   $index = rand(0,1);

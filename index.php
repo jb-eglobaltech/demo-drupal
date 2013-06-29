@@ -60,7 +60,8 @@
       <!-- Begin page content -->
       <div class="container" style="margin-top:60px;">
 
-        <?php foreach ($instances as $name => $instance) { ?>        
+        <?php foreach ($instances as $name => $instance) { ?>
+        <?php if ($name==$self) continue; ?>
         <div class="accordion" id="accordion-<?php echo $name; ?>">
 
           <div class="accordion-group">                  
@@ -123,10 +124,14 @@
     <script type="text/javascript">
 
       var $instances = <?php echo json_encode($instances); ?>;
+      var $self = <?php echo json_encode($self); ?>;
 
       $(document).ready(function() {    
 
           for (var $name in $instances) {
+            if($name==$self)
+              continue;
+
             doAjax($name); 
           }
 
