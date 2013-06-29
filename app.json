@@ -1,4 +1,5 @@
 {
+	"app" : "demo-drupal",
     "name": "drupal",
     "services": [
     	"drupal",

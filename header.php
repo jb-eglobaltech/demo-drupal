@@ -4,6 +4,7 @@ $file = file_get_contents('app.json');
 $json = json_decode($file,true);
 $connects = $json['services'];
 $myname = $json['name'];
+$app = $json['app'];
 
 /* Set self instance */
 list($file) = glob('../env/'.$myname.'*.json'); 

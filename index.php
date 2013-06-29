@@ -125,6 +125,7 @@
       var $services = <?php echo json_encode($services); ?>;
       var $self = <?php echo json_encode($self); ?>;
       var $myname = <?php echo json_encode($myname); ?>;
+      var $app = <?php echo json_encode($app); ?>;      
 
       $(document).ready(function() {    
 
@@ -134,7 +135,7 @@
 
           function doAjax($service_name) {
 
-            $url = 'http://'+$services[$service_name]['automatic']['ec2']['public_ipv4']+'/status.php';
+            $url = 'http://'+$services[$service_name]['automatic']['ec2']['public_ipv4']+'/demo-'+$service_name+'/status.php';
             
             $.ajax({
               url: $url,
