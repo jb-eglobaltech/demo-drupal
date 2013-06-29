@@ -61,7 +61,7 @@
       <div class="container" style="margin-top:60px;">
 
         <?php foreach ($instances as $name => $instance) { ?>
-        <?php if ($name==$self) continue; ?>
+        <?php // if ($name==$self) continue; ?>
         <div class="accordion" id="accordion-<?php echo $name; ?>">
 
           <div class="accordion-group">                  
@@ -129,10 +129,8 @@
       $(document).ready(function() {    
 
           for (var $name in $instances) {
-            if($name==$self)
-              continue;
-
-            doAjax($name); 
+            //if($name==$self) continue;
+            doAjax($name);
           }
 
           function doAjax($name) {
@@ -150,8 +148,7 @@
                   $class = new Array();
                   $class['Yellow'] = '';
                   $class['Green'] = 'alert-success';
-                  //$class['Red'] = 'alert-error';
-
+                  
                   $msg = '<div class="alert alert-block ' + $class[data['status']] + '">\
                             <button type="button" class="close" data-dismiss="alert">x</button>\
                             <p>Last Updated: '+ getTime() + '</p>\
@@ -159,11 +156,7 @@
                             '+data['message']+'\
                           </div>';
 
-                  $('#'+$name+'-msg-block').fadeOut(1000, function(){
-                      $(this).empty().append($msg).fadeIn();
-                  });
-
-                  //$('#msg-block').fadeOut(200).html($msg).fadeIn(200);
+                  $('#'+$name+'-msg-block').empty().html($msg);
 
                 },
                 500: function() {
@@ -173,9 +166,7 @@
                             Cannot connect to service. Internal Service Error.\
                           </div>';
 
-                  $('#'+$name+'-msg-block').fadeOut(1000, function(){
-                      $(this).empty().append($msg).fadeIn();
-                  });
+                  $('#'+$name+'-msg-block').empty().html($msg);
 
                 },
                 404: function() {
@@ -185,9 +176,7 @@
                             Cannot connect to service. Service Not Found.\
                           </div>';
 
-                  $('#'+$name+'-msg-block').fadeOut(1000, function(){
-                      $(this).empty().append($msg).fadeIn();
-                  });
+                  $('#'+$name+'-msg-block').empty().html($msg);
 
                 }
               },
@@ -195,7 +184,7 @@
                 
                 setTimeout(function(){
                   doAjax($name);
-                },5000);
+                },3000);
 
               }
 
