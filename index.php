@@ -135,7 +135,8 @@
 
           function doAjax($service_name) {
 
-            $url = 'http://'+$services[$service_name]['automatic']['ec2']['public_ipv4']+'/demo-'+$service_name+'/status.php';
+            //$url = 'http://'+$services[$service_name]['automatic']['ec2']['public_ipv4']+'/demo-'+$service_name+'/status.php';
+            $url = 'proxy.php?service='+$service_name;
             
             $.ajax({
               url: $url,
