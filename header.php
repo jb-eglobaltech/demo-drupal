@@ -11,7 +11,7 @@ $json = file_get_contents($file);
 $self = json_decode($json,true);
 
 /* Set services array */
-$servces = array();
+$services = array();
 
 foreach($connects as $connect) {
 	list($file) = glob('../env/'.$connect.'*.json'); 
