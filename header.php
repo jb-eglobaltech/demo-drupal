@@ -1,16 +1,22 @@
 <?php
 
-$self = 'drupal';
+$file = file_get_contents('app.json');
+$json = json_decode($file,true);
+$connects = $json['services'];
+$myname = $json['name'];
 
-$file = file_get_contents('services.json');
-$connects = json_decode($file,true);
+/* Set self instance */
+list($file) = glob('../env/'.$myname.'*.json'); 
+$json = file_get_contents($file);
+$self = json_decode($json,true);
 
-$instances = array();
+/* Set services array */
+$servces = array();
 
-foreach($connects as $instance) {
-	list($file) = glob('../env/'.$instance.'*.json'); 
+foreach($connects as $connect) {
+	list($file) = glob('../env/'.$connect.'*.json'); 
 	$json = file_get_contents($file);
-	$instances[$instance] = json_decode($json,true);
+	$services[$connect] = json_decode($json,true);
 }
 
 

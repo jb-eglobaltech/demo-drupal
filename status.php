@@ -6,14 +6,14 @@
   $status = array("Green",
                   "Yellow",
                  );
-  $statusMsg = array(ucwords($self)." server is ready for requests",
-                     ucwords($self)." server is busy",
+  $statusMsg = array(ucwords($myname)." server is ready for requests",
+                     ucwords($myname)." server is busy",
                      );
 
   $index = rand(0,1);
 
   $data = array("id" => genrandom(),
-                "name" => $instances[$self]['name'],
+                "name" => $self['name'],
                 "status" => $status[$index],
                 "message" => $statusMsg[$index]
                );

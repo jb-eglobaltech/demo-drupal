@@ -4,7 +4,7 @@
 <html lang="en">
 	
 	<head>
-		<title><?php echo ucwords($self); ?> Application</title>
+		<title><?php echo ucwords($myname); ?></title>
 
 	    <!-- CSS -->
 	    <link href="<?php echo "css/bootstrap/bootstrap.css" ?>" rel="stylesheet">
@@ -43,7 +43,7 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="brand" href="http://localhost:8888/laravel/"><?php echo ucwords($self); ?></a>
+            <a class="brand" href="index.php"><?php echo ucwords($myname); ?></a>
 
             <div class="nav-collapse collapse">
               <ul class="nav pull-right">
@@ -60,24 +60,23 @@
       <!-- Begin page content -->
       <div class="container" style="margin-top:60px;">
 
-        <?php foreach ($instances as $name => $instance) { ?>
-        <?php // if ($name==$self) continue; ?>
-        <div class="accordion" id="accordion-<?php echo $name; ?>">
+        <?php foreach ($services as $service_name => $details) { ?>
+        <div class="accordion" id="accordion-<?php echo $service_name; ?>">
 
           <div class="accordion-group">                  
             <div class="accordion-heading">              
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-<?php echo $name; ?>" href="#collapseOne-<?php echo $name; ?>">
-                <?php echo ucwords($name); ?>
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-<?php echo $service_name; ?>" href="#collapseOne-<?php echo $service_name; ?>">
+                <?php echo ucwords($service_name); ?>
               </a> 
             </div>
-            <div id="collapseOne-<?php echo $name; ?>" class="accordion-body collapse in">
+            <div id="collapseOne-<?php echo $service_name; ?>" class="accordion-body collapse in">
               <div class="accordion-inner">
 
                 <br />                
-                <div id="<?php echo $name;?>-msg-block">
+                <div id="<?php echo $service_name;?>-msg-block">
                   <div class="alert alert-block alert-info">
                     <button type="button" class="close" data-dismiss="alert">x</button>
-                    Not connected to <?php echo ucwords($name); ?> Service
+                    Not connected to <?php echo ucwords($service_name); ?> Service
                   </div>
                 </div>
 
@@ -87,14 +86,14 @@
                         
           <div class="accordion-group">
               <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-<?php echo $name; ?>" href="#collapseTwo-<?php echo $name; ?>">
-                  <?php echo ucwords($name); ?> Server Details
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-<?php echo $service_name; ?>" href="#collapseTwo-<?php echo $service_name; ?>">
+                  <?php echo ucwords($service_name); ?> Server Details
                 </a>
               </div>        
-              <div id="collapseTwo-<?php echo $name; ?>" class="accordion-body collapse">
+              <div id="collapseTwo-<?php echo $service_name; ?>" class="accordion-body collapse">
                 <div class="accordion-inner">
                   <pre>
-                    <?php print_r($instance); ?>
+                    <?php print_r($details); ?>
                   </pre>
                 </div>
               </div>
@@ -123,19 +122,19 @@
 
     <script type="text/javascript">
 
-      var $instances = <?php echo json_encode($instances); ?>;
+      var $services = <?php echo json_encode($services); ?>;
       var $self = <?php echo json_encode($self); ?>;
+      var $myname = <?php echo json_encode($myname); ?>;
 
       $(document).ready(function() {    
 
-          for (var $name in $instances) {
-            //if($name==$self) continue;
-            doAjax($name);
+          for (var $service_name in $services) {
+            doAjax($service_name);
           }
 
-          function doAjax($name) {
+          function doAjax($service_name) {
 
-            $url = 'http://'+$instances[$name]['automatic']['ec2']['public_ipv4']+'/status.php';
+            $url = 'http://'+$services[$service_name]['automatic']['ec2']['public_ipv4']+'/status.php';
             
             $.ajax({
               url: $url,
@@ -152,11 +151,15 @@
                   $msg = '<div class="alert alert-block ' + $class[data['status']] + '">\
                             <button type="button" class="close" data-dismiss="alert">x</button>\
                             <p>Last Updated: '+ getTime() + '</p>\
-                            <p>Name: '+ data['name'] + '</p>\
-                            '+data['message']+'\
+                            <p>\
+                              Request ID: ' + data['id'] + '<br />\
+                              Name: ' + data['name'] + '<br />' +
+                              data['message'] + 
+                            '</p>\
                           </div>';
 
-                  $('#'+$name+'-msg-block').empty().html($msg);
+
+                  $('#'+$service_name+'-msg-block').empty().html($msg);
 
                 },
                 500: function() {
@@ -166,7 +169,7 @@
                             Cannot connect to service. Internal Service Error.\
                           </div>';
 
-                  $('#'+$name+'-msg-block').empty().html($msg);
+                  $('#'+$service_name+'-msg-block').empty().html($msg);
 
                 },
                 404: function() {
@@ -176,14 +179,14 @@
                             Cannot connect to service. Service Not Found.\
                           </div>';
 
-                  $('#'+$name+'-msg-block').empty().html($msg);
+                  $('#'+$service_name+'-msg-block').empty().html($msg);
 
                 }
               },
               complete: function() {
                 
                 setTimeout(function(){
-                  doAjax($name);
+                  doAjax($service_name);
                 },3000);
 
               }
