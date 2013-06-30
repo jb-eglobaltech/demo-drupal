@@ -1,14 +1,14 @@
 <?php 
 
-$url = ""; 
+$url = "";
 if ($handle = opendir('.')) {
     $blacklist = array('.', '..', 'env', 'index.php');
     while (false !== ($file = readdir($handle))) {
         if (!in_array($file, $blacklist)) {
             $url = $file;
-        break;
-        }   
-    }   
+		break;
+        }
+    }
     closedir($handle);
 }
 

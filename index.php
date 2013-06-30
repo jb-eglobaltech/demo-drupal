@@ -14,13 +14,41 @@
 			-------------------------------------------------- */
 			/* Not required for template or sticky footer method. */
 
-			.container {
-				width: auto;
-				max-width: 980px;
-			}
-			.container .credit {
-				margin: 20px 0;
-			}
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+
+      /* Custom container */
+      .container {
+        margin: 0 auto;
+        max-width: 850px;
+      }
+      .container > hr {
+        margin: 30px 0;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        margin: 60px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }
 
 	    </style>
       <link href="<?php echo "css/bootstrap/bootstrap-responsive.css" ?>" rel="stylesheet">
@@ -55,9 +83,18 @@
         </div><!--/.navbar-inner -->
       </div>
 
-
       <!-- Begin page content -->
       <div class="container" style="margin-top:60px;">
+
+        <?php if(empty($services)) { ?>
+
+          <div class="jumbotron">
+            <h1><?php echo ucwords($myname); ?> Instance</h1>
+            <p class="lead">The <?php echo ucwords($myname); ?> instance does not poll any other services. Please update that app.json file to connect to other services.</p>
+            <a class="btn btn-large btn-success" href="#"><?php echo ucwords($myname); ?></a>
+          </div>
+
+        <?php } ?>
 
         <?php foreach ($services as $service_name => $details) { ?>
         <div class="accordion" id="accordion-<?php echo $service_name; ?>">
@@ -134,7 +171,7 @@
 
           function doAjax($service_name) {
 
-            //$url = 'http://'+$services[$service_name]['automatic']['ec2']['public_ipv4']+'/demo-'+$service_name+'/status.php';
+            $service_url = $services[$service_name]['automatic']['ec2']['public_ipv4'];
             $url = 'proxy.php?service='+$service_name;
             
             $.ajax({
@@ -153,6 +190,7 @@
                             <button type="button" class="close" data-dismiss="alert">x</button>\
                             <p>Last Updated: '+ getTime() + '</p>\
                             <p>\
+                              URL: ' + $service_url + '<br />\
                               Request ID: ' + data['id'] + '<br />\
                               Name: ' + data['name'] + '<br />' +
                               data['message'] + 

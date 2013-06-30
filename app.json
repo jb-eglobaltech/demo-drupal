@@ -2,6 +2,7 @@
 	"app" : "demo-drupal",
     "name": "drupal",
     "services": [
-        "ckan"
+    	"ckan",
+    	"solr"
     ]
 }
