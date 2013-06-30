@@ -47,7 +47,6 @@
 
             <div class="nav-collapse collapse">
               <ul class="nav pull-right">
-                <li><a href="index.php">Home</a></li>
                 <li><a href="status.php">Status</a></li>
               </ul>
             </div><!--/.nav-collapse -->
