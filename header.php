@@ -21,6 +21,12 @@ foreach($connects as $connect) {
 }
 
 
+list($xmlfile) = glob('../env/rds*.xml');
+$xmlfilename = basename($xmlfile,".xml");
+if(!$rds = simplexml_load_file($xmlfile))
+  exit('Failed to open '.$xmlfile);
+
+
 function genrandom() {
   $characters = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789';
   $string = '';
