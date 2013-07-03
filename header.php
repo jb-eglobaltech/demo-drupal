@@ -21,7 +21,7 @@ foreach($connects as $connect) {
 }
 
 
-list($xmlfile) = glob('../env/rds*.xml');
+list($xmlfile) = glob('../env/db*.xml');
 $xmlfilename = basename($xmlfile,".xml");
 if(!$rds = simplexml_load_file($xmlfile))
   exit('Failed to open '.$xmlfile);
