@@ -14,27 +14,33 @@
 	$constring .= 'port='.$dbport.';';
 	$constring .= 'connect_timeout=15';
 
-    $dbo = new PDO($constring,$dbuser,$dbpassword);
-    $dbo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$exception = null;
 
-	/* Query */
-	$sql = "SHOW TABLES FROM $dbname";
+	try {
+	    $dbo = new PDO($constring,$dbuser,$dbpassword);
+	    $dbo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	$query = $dbo->prepare($sql);
-        
-    if ($query->execute()) {
+		/* Query */
+		$sql = "SHOW TABLES FROM $dbname";
 
-		$results = array();
-    	$results = $query->fetchAll();
+		$query = $dbo->prepare($sql);
+	        
+	    if ($query->execute()) {
 
-    	$count = count($results);
+			$dbresults = array();
+	    	$dbresults = $query->fetchAll();
 
-    	if ($count) {			
-			print_r($results);			
-		} else {
-			echo 'no tables found';		
+	    	$count = count($results);
+
+	    	if ($count) {
+	    		$dbstatus="Connected";			
+			} else {
+				$dbstatus="Not Connected";		
+			}
+
 		}
-
+	} catch (Exception $ex) {
+		$exception = $ex;
 	}
 
 ?>

@@ -1,5 +1,6 @@
 <?php ini_set('display_errors', 'on'); ?>
 <?php include_once('header.php'); ?>
+<?php include_once('db.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 	
@@ -95,6 +96,38 @@
           </div>
 
         <?php } ?>
+
+        <?php $service_name = 'Amazon RDS'; ?>
+        <div class="accordion" id="accordion-<?php echo $service_name; ?>">
+
+          <div class="accordion-group">                  
+            <div class="accordion-heading">              
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-<?php echo $service_name; ?>" href="#collapseOne-<?php echo $service_name; ?>">
+                <?php echo ucwords($service_name); ?>
+              </a> 
+            </div>
+            <div id="collapseOne-<?php echo $service_name; ?>" class="accordion-body collapse in">
+              <div class="accordion-inner">
+
+                <br />                
+                <div id="<?php echo $service_name;?>-msg-block">
+                    <?php if($exception) { ?>
+                      <div class="alert alert-block alert-error">
+                        <button type="button" class="close" data-dismiss="alert">x</button>                        
+                        <?php echo $exception; ?>
+                      </div>
+                    <?php } else { ?>
+                      <div class="alert alert-block alert-info">
+                        <button type="button" class="close" data-dismiss="alert">x</button>
+                        <?php echo $dbstatus.' to '.ucwords($service_name). 'Service'; ?>
+                      </div>
+                    <?php } ?>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <?php foreach ($services as $service_name => $details) { ?>
         <div class="accordion" id="accordion-<?php echo $service_name; ?>">
