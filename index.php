@@ -97,13 +97,13 @@
 
         <?php } ?>
 
-        <?php $service_name = 'Amazon RDS'; ?>
+        <?php $service_name = 'RDS'; ?>
         <div class="accordion" id="accordion-<?php echo $service_name; ?>">
 
           <div class="accordion-group">                  
             <div class="accordion-heading">              
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-<?php echo $service_name; ?>" href="#collapseOne-<?php echo $service_name; ?>">
-                <?php echo ucwords($service_name); ?>
+                Amazon <?php echo ucwords($service_name); ?>
               </a> 
             </div>
             <div id="collapseOne-<?php echo $service_name; ?>" class="accordion-body collapse in">
@@ -119,13 +119,36 @@
                     <?php } else { ?>
                       <div class="alert alert-block alert-info">
                         <button type="button" class="close" data-dismiss="alert">x</button>
-                        <?php echo $dbstatus.' to '.ucwords($service_name). 'Service'; ?>
+                        <?php echo $dbstatus.' to '.ucwords($service_name). ' Service'; ?>
                       </div>
                     <?php } ?>
                 </div>
               </div>
             </div>
           </div>
+
+          <?php if($dbstatus=="Connected") { ?>
+
+          <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-<?php echo $service_name; ?>" href="#collapseTwo-<?php echo $service_name; ?>">
+                  Amazon <?php echo ucwords($service_name); ?> Details
+                </a>
+              </div>        
+              <div id="collapseTwo-<?php echo $service_name; ?>" class="accordion-body collapse">
+                <div class="accordion-inner">
+                  <pre>
+                    <?php print_r($dbresults); ?>
+                  </pre>
+                </div>
+              </div>
+          </div>
+
+          <?php } ?>
+
+
+
+
         </div>
 
 

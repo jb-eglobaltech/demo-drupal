@@ -30,7 +30,7 @@
 			$dbresults = array();
 	    	$dbresults = $query->fetchAll();
 
-	    	$count = count($results);
+	    	$count = count($dbresults);
 
 	    	if ($count) {
 	    		$dbstatus="Connected";			
