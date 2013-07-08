@@ -15,6 +15,7 @@
 	$constring .= 'connect_timeout=15';
 
 	$exception = null;
+	$dbstatus = 'Not Connected';
 
 	try {
 	    $dbo = new PDO($constring,$dbuser,$dbpassword);
@@ -34,10 +35,8 @@
 
 	    	if ($count) {
 	    		$dbstatus="Connected";			
-			} else {
-				$dbstatus="Not Connected";		
 			}
-
+			
 		}
 	} catch (Exception $ex) {
 		$exception = $ex;
